@@ -1,0 +1,5 @@
+INDEX VERSION 1.126+C:\Users\Pierre\Documents\GitHub\TERAndroid2013\.metadata\.plugins\org.eclipse.jdt.core
+4132012971.index
+4010218129.index
+3246098100.index
+1356265615.index
