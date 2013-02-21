@@ -1,5 +1,7 @@
 package com.jeangaud_unchained.model;
 
+import android.graphics.Color;
+
 public class Pixel {
 	private int x,y,color;
 	
@@ -33,6 +35,17 @@ public class Pixel {
 		this.color = color;
 	}
 	
+	public boolean isBlack(){
+		int r,g,b;
+		
+		r=Color.red(this.getColor());
+		g=Color.green(this.getColor());
+		b=Color.blue(this.getColor());
+		
+		if((r+b+g)==0){
+			return true;
+		}else return false;
+	}
 	
 	
 }
