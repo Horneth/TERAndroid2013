@@ -1,23 +1,20 @@
 package com.jeangaud_unchained.view;
 
-import com.example.jeangaud_unchained.R;
-import com.example.jeangaud_unchained.R.id;
-import com.example.jeangaud_unchained.R.layout;
-import com.example.jeangaud_unchained.R.menu;
-
+import android.app.Activity;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Activity;
 import android.view.Display;
 import android.view.Menu;
-import android.view.Surface;
 import android.view.WindowManager;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.jeangaud_unchained.R;
+import com.jeangaud_unchained.control.AccelerationController;
+import com.jeangaud_unchained.model.CircleView;
 
 public class BurnActivity extends Activity implements SensorEventListener {
 	/*** valeur courante de l'accéléromètre*/
@@ -37,23 +34,33 @@ public class BurnActivity extends Activity implements SensorEventListener {
 	private static final int Gravity = 1;
 	private static final int LINEAR_ACCELE = 2;
 	private static final int GEOMAG = 3;
+	
+	private CircleView burningPoint;
+	
+	private AccelerationController accelerationController;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_burn);
 		Uri uriPhoto = (Uri)getIntent().getParcelableExtra("photo");
-		TextView tv = (TextView)findViewById(R.id.textView1);
-		tv.setText(uriPhoto.toString());
+		Toast.makeText(getApplicationContext(), String.valueOf(uriPhoto), Toast.LENGTH_LONG).show();
+		burningPoint = (CircleView)findViewById(R.id.circleView1);
+
+		
+		accelerationController = new AccelerationController();
 		
 		// Instancier le SensorManager
 		sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 		// Instancier l'accéléromètre
 		accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 		geomagnetic = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+		
+		
 		// Et enfin instancier le display qui connaît l'orientation de l'appareil
 		mDisplay = ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
 	}
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -87,13 +94,12 @@ public class BurnActivity extends Activity implements SensorEventListener {
 		SensorManager.getRotationMatrix(rotationMatrix, null, gravityVector, geomagVector);
 		SensorManager.getOrientation(rotationMatrix, orientationVector);
 		
-		TextView xTV = (TextView)findViewById(R.id.textView1);
-		TextView yTV = (TextView)findViewById(R.id.textView2);
-		TextView zTV = (TextView)findViewById(R.id.textView3);
+		int[] deltas = new int[2];
+		accelerationController.computeDeltas(orientationVector, deltas);
 		
-		xTV.setText(String.valueOf(orientationVector[0]));
-		yTV.setText(String.valueOf(orientationVector[1]));
-		zTV.setText(String.valueOf(orientationVector[2]));
+		burningPoint.updatePosition(deltas[0], deltas[1]);
+		burningPoint.invalidate();
+
 	}
 	
 	@Override

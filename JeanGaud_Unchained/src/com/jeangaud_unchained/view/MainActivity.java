@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.app.Activity;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.Menu;
@@ -33,16 +35,20 @@ public class MainActivity extends Activity {
 	private Button quitter=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+    	 
         super.onCreate(savedInstanceState);
+       
         setContentView(R.layout.activity_main);
         
      // create Intent to take a picture and return control to the calling application
         intentPhoto = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+		File photo = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "photo.jpg");
+		imageUri = Uri.fromFile(photo);
+
         
-        File photo = new File(Environment.getExternalStorageDirectory(),  "photo.jpg");
-        imageUri = Uri.fromFile(photo);
         intentPhoto.putExtra(MediaStore.EXTRA_OUTPUT, imageUri); // set the image file name
-        
+
         quitter = (Button) findViewById(R.id.button2);
         quitter.setOnClickListener(monEcouteurQ);
         
@@ -55,6 +61,12 @@ public class MainActivity extends Activity {
 			}
        });
     }
+    
+    private File getTempFile()
+    {
+        //it will return /sdcard/image.tmp
+        return new File(Environment.getExternalStorageDirectory(),  "image.tmp");
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -66,22 +78,14 @@ public class MainActivity extends Activity {
     public void takePhoto() {
         startActivityForResult(intentPhoto, CAPTURE_PHOTO_ACTIVITY_REQUEST_CODE);
     }
+
     
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAPTURE_PHOTO_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-            	try {
-					bitmapImage = android.provider.MediaStore.Images.Media
-					        .getBitmap(getContentResolver(), data.getData());
-					startBurnActivity();
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+            	startBurnActivity();
+    
             } else if (resultCode == RESULT_CANCELED) {
                 // User cancelled the image capture
             } else {

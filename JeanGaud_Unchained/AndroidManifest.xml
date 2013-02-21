@@ -24,7 +24,8 @@
         </activity>
         <activity
             android:name="com.jeangaud_unchained.view.BurnActivity"
-            android:label="@string/title_activity_burn" >
+            android:label="@string/title_activity_burn"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

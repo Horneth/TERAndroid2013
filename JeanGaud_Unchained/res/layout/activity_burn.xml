@@ -4,33 +4,11 @@
     android:layout_height="match_parent"
     tools:context=".BurnActivity" >
 
-    <TextView
-        android:id="@+id/textView1"
+    <com.jeangaud_unchained.model.CircleView
+        android:id="@+id/circleView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="37dp"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView1"
-        android:layout_alignBottom="@+id/textView1"
-        android:layout_marginLeft="20dp"
-        android:layout_toRightOf="@+id/textView1"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView2"
-        android:layout_alignBottom="@+id/textView2"
-        android:layout_marginLeft="36dp"
-        android:layout_toRightOf="@+id/textView2"
-        android:text="TextView" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true" />
 
 </RelativeLayout>
