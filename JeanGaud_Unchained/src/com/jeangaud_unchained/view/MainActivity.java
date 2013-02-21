@@ -30,6 +30,7 @@ public class MainActivity extends Activity {
 	private static final int CAPTURE_PHOTO_ACTIVITY_REQUEST_CODE = 200;
 	private static final int BURN_ACTIVITY_CODE = 200;
 	private Bitmap bitmapImage;
+	private Button quitter=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +42,9 @@ public class MainActivity extends Activity {
         File photo = new File(Environment.getExternalStorageDirectory(),  "photo.jpg");
         imageUri = Uri.fromFile(photo);
         intentPhoto.putExtra(MediaStore.EXTRA_OUTPUT, imageUri); // set the image file name
+        
+        quitter = (Button) findViewById(R.id.button2);
+        quitter.setOnClickListener(monEcouteurQ);
         
        Button btnTakePhoto =  (Button)findViewById(R.id.takePhotoBtn);
        btnTakePhoto.setOnClickListener(new OnClickListener() {
@@ -93,5 +97,12 @@ public class MainActivity extends Activity {
     	burnActivity.putExtra("photo", imageUri);
     	startActivity(burnActivity);
     }
+    
+    private OnClickListener monEcouteurQ = new OnClickListener() {
+   	 
+    	public void onClick(View arg0) {
+			 	finish();
+     }
+    };
     
 }

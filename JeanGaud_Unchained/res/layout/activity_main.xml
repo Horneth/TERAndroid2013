@@ -13,4 +13,12 @@
         android:layout_marginLeft="60dp"
         android:text="Button" />
 
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/takePhotoBtn"
+        android:text="Quitter" />
+
 </RelativeLayout>
