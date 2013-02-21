@@ -10,6 +10,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
 public class MainActivity extends Activity {
 	
@@ -23,11 +25,20 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         
      // create Intent to take a picture and return control to the calling application
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intentPhoto = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         
         File photo = new File(Environment.getExternalStorageDirectory(),  "photo.jpg");
         imageUri = Uri.fromFile(photo);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri); // set the image file name
+        intentPhoto.putExtra(MediaStore.EXTRA_OUTPUT, imageUri); // set the image file name
+        
+       Button btnTakePhoto =  (Button)findViewById(R.id.takePhotoBtn);
+       btnTakePhoto.setOnClickListener(new OnClickListener() {
+		
+			@Override
+			public void onClick(View arg0) {
+				takePhoto();
+			}
+       });
     }
 
     @Override
@@ -37,7 +48,7 @@ public class MainActivity extends Activity {
         return true;
     }
     
-    public void takePhoto(View view) {
+    public void takePhoto() {
         startActivityForResult(intentPhoto, CAPTURE_PHOTO_ACTIVITY_REQUEST_CODE);
     }
     
