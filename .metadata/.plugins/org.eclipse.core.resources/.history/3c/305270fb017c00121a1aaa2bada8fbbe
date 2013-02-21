@@ -1,0 +1,5 @@
+package com.jeangaud_unchained.model;
+
+public class Pixel {
+
+}
