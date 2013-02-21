@@ -1,10 +1,15 @@
 package com.jeangaud_unchained.view;
 
 import com.example.jeangaud_unchained.R;
+import com.example.jeangaud_unchained.R.id;
+import com.example.jeangaud_unchained.R.layout;
+import com.example.jeangaud_unchained.R.menu;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import android.widget.TextView;
 
 public class BurnActivity extends Activity {
 
@@ -12,6 +17,9 @@ public class BurnActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_burn);
+		Uri uriPhoto = (Uri)getIntent().getParcelableExtra("photo");
+		TextView tv = (TextView)findViewById(R.id.textView1);
+		tv.setText(uriPhoto.toString());
 	}
 
 	@Override
@@ -20,5 +28,7 @@ public class BurnActivity extends Activity {
 		getMenuInflater().inflate(R.menu.activity_burn, menu);
 		return true;
 	}
+	
+	
 
 }

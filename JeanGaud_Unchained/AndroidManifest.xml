@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.jeangaud_unchained.MainActivity"
+            android:name="com.jeangaud_unchained.view.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.jeangaud_unchained.BurnActivity"
+            android:name="com.jeangaud_unchained.view.BurnActivity"
             android:label="@string/title_activity_burn" >
         </activity>
     </application>
